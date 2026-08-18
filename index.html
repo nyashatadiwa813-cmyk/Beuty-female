@@ -57,6 +57,24 @@ button:nth-child(3) {
     function sayHello() {
       document.getElementById("message").textContent = "Hello! Thanks for visiting my website!";
     }
-  </script>
+  
+  
+<script>
+  function getBeautyTip() {
+    const tips = [
+      "Remember to be gentle with your skin!",
+      "Drink enough water and take care of yourself!",
+      "Keep your makeup brushes clean!",
+      "Be kind to your skin and avoid harsh products!"
+    ];
+
+    const randomTip = tips[Math.floor(Math.random() * tips.length)];
+
+    alert(randomTip);
+  }
+</script>pt>
+
+</body>
+</html>
 </body>
 </html>
