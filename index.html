@@ -1,17 +1,26 @@
-DOCH-TML,HTML
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Beauty App</title>
+</head>
 
-title:my beuty app
+<body>
+  <h1>Welcome to My Beauty App!</h1>
 
-body:h1 to my beuty app.this app  is about good hygiene,natural skincare products and you will develop good   habits
-<h2>about me </h2>
-<p>I am learning how to build websites withHTML.
-</p>
-<button>clickme</button>
-<p  id="message"></p>
-<script>
-function say hello (){
-documents.get element By id ("message").text
-content="Hello!Thanks for visiting my website!";
-}
-</script>
-HTML
+  <p>Hi! Welcome to my website. I’m happy you’re here.</p>
+
+  <h2>About Me</h2>
+
+  <p>I am learning how to build websites with HTML.</p>
+
+  <button onclick="sayHello()">Click Me</button>
+
+  <p id="message"></p>
+
+  <script>
+    function sayHello() {
+      document.getElementById("message").textContent = "Hello! Thanks for visiting my website!";
+    }
+  </script>
+</body>
+</html>
