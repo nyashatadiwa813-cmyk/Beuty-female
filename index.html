@@ -109,7 +109,17 @@ button:nth-child(3) {
 
     alert(randomTip);
   }
-</script>pt>
+</script>
+  function createPost() {
+  const text = document.getElementById("postText").value;
+
+  if (text.trim() === "") {
+    alert("Please write something first!");
+    return;
+  }
+
+  alert("Your post was created!");
+}
 
 </body>
 </html>
