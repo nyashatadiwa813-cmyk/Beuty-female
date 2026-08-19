@@ -108,7 +108,10 @@ button:nth-child(3) {
 
     alert(randomTip);
   }
-  
+  function likePost(button) {
+  const count = button.querySelector("span");
+  count.textContent = Number(count.textContent) + 1;
+  }
   function createPost() {
   const text = document.getElementById("postText").value;
 
