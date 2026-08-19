@@ -119,9 +119,7 @@ button:nth-child(3) {
     alert("Please write something first!");
     return;
   }
-document.getElementById("posts").innerHTML += "<div><p>" + text + "</p></div>";
-  alert("Your post was created!");
-}
+document.getElementById("posts").innerHTML += "<div><p>" + text + "</p><button onclick='likePost(this)'>❤️ Like <span>0</span></button></div>";
   
 </script>
 </body>
