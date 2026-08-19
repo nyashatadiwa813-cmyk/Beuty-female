@@ -70,7 +70,7 @@ button:nth-child(3) {
   <h2>✨ Today's Beauty Post</h2>
     <div>
   <h2>👤 My Profile</h2>
-  <p><strong>Username:</strong> <span id="username">BeautyStar</span></p>
+  <p><strong>Username:</strong> <span id="username">BeautyStar</sp
   <p><strong>Interests:</strong> Makeup, Fashion, Nails</p>
   <button onclick="alert('Profile followed!')">➕ Follow</button>
       <button onclick="changeUsername()">✏️ Change Username</button>
@@ -99,6 +99,14 @@ button:nth-child(3) {
 <script>
  function changeUsername() {
   const newName = prompt("Enter your new username:");
+
+  if (newName && newName.trim() !== "") {
+    const username = newName.trim();
+
+    document.getElementById("username").textContent = username;
+    localStorage.setItem("username", username);
+  }
+ }
 
   if (newName && newName.trim() !== "") {
     document.getElementById("username").textContent = newName.trim();
