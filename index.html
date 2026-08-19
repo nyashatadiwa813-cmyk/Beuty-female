@@ -96,7 +96,13 @@ button:nth-child(3) {
   
   
 <script>
-  
+ function changeUsername() {
+  const newName = prompt("Enter your new username:");
+
+  if (newName && newName.trim() !== "") {
+    document.getElementById("username").textContent = newName.trim();
+  }
+  } 
 function likePost(button) {
   const count = button.querySelector("span");
   count.textContent = Number(count.textContent) + 1;
