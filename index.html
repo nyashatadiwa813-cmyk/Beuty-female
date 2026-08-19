@@ -96,30 +96,38 @@ button:nth-child(3) {
   
   
 <script>
-  function getBeautyTip() {
-    const tips = [
-      "Remember to be gentle with your skin!",
-      "Drink enough water and take care of yourself!",
-      "Keep your makeup brushes clean!",
-      "Be kind to your skin and avoid harsh products!"
-    ];
-
-    const randomTip = tips[Math.floor(Math.random() * tips.length)];
-
-    alert(randomTip);
-  }
-  function likePost(button) {
+  
+function likePost(button) {
   const count = button.querySelector("span");
   count.textContent = Number(count.textContent) + 1;
-  }
-  function createPost() {
-  const text = document.getElementById("postText").value;
+}
 
-  if (text.trim() === "") {
+function reportPost() {
+  alert("Thanks for reporting this post.");
+}
+
+function createPost() {
+  const text = document.getElementById("postText").value.trim();
+
+  if (text === "") {
     alert("Please write something first!");
     return;
   }
-document.getElementById("posts").innerHTML += "<div><p>" + text + "</p><button onclick='likePost(this)'>❤️ Like <span>0</span></button> <button onclick='alert(\"Post reported\")'>🚩 Report</button></div>";
+
+  const post = document.createElement("div");
+
+  post.innerHTML =
+    "<p>" + text + "</p>" +
+    "<button onclick='likePost(this)'>❤️ Like <span>0</span></button> " +
+    "<button onclick='reportPost()'>🚩 Report</button>";
+
+  document.getElementById("posts").appendChild(post);
+
+  document.getElementById("postText").value = "";
+}
+
+
+  
 </script>
 </body>
 </html>
