@@ -318,7 +318,150 @@
     }
 
     loadUsername();
-  </script>
+    <script>
+function changeUsername() {
+  const newName = prompt("Enter your new username:");
+
+  if (newName && newName.trim() !== "") {
+    const username = newName.trim();
+
+    document.getElementById("username").textContent = username;
+    localStorage.setItem("username", username);
+  }
+}
+
+function loadUsername() {
+  const savedUsername = localStorage.getItem("username");
+
+  if (savedUsername) {
+    document.getElementById("username").textContent = savedUsername;
+  }
+}
+
+function followUser() {
+  alert("You are now following BeautyStar! 💖");
+}
+
+function likePost(button) {
+  const count = button.querySelector("span");
+  count.textContent = Number(count.textContent) + 1;
+}
+
+function likeSimplePost(button) {
+  const count = button.querySelector("span");
+  count.textContent = Number(count.textContent) + 1;
+}
+
+function reportPost() {
+  alert("Thanks for reporting this post.");
+}
+
+function createPost() {
+  const textBox = document.getElementById("postText");
+  const text = textBox.value.trim();
+
+  if (text === "") {
+    alert("Please write something first!");
+    return;
+  }
+
+  const posts = JSON.parse(localStorage.getItem("posts") || "[]");
+
+  posts.push(text);
+  localStorage.setItem("posts", JSON.stringify(posts));
+
+  displayPosts();
+
+  textBox.value = "";
+
+  alert("Your post was created! 🎉");
+}
+
+function displayPosts() {
+  const posts = JSON.parse(localStorage.getItem("posts") || "[]");
+  const postsContainer = document.getElementById("posts");
+
+  postsContainer.innerHTML = "";
+
+  posts.forEach(function(text) {
+    const post = document.createElement("div");
+
+    post.innerHTML =
+      "<p>" + escapeHtml(text) + "</p>" +
+      "<button onclick='likePost(this)'>" +
+      "❤️ Like <span>0</span>" +
+      "</button>" +
+      "<button onclick='reportPost()'>" +
+      "🚩 Report" +
+      "</button>";
+
+    postsContainer.appendChild(post);
+  });
+}
+
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function getBeautyTip() {
+  const tips = [
+    "Remember to be gentle with your skin. ✨",
+    "Have fun experimenting with your style! 💖",
+    "Clean your makeup tools regularly. 💄",
+    "Choose beauty routines that make you feel comfortable and confident. 🌸"
+  ];
+
+  const randomTip =
+    tips[Math.floor(Math.random() * tips.length)];
+
+  document.getElementById("beautyTip").textContent = randomTip;
+}
+
+function showMakeupMessage() {
+  document.getElementById("message").textContent =
+    "Makeup is a fun way to explore creativity! 💄";
+}
+
+function showNailsMessage() {
+  document.getElementById("message").textContent =
+    "Nails can be a fun and creative way to express yourself! 💅";
+}
+
+function showSkincareMessage() {
+  document.getElementById("message").textContent =
+    "Taking gentle care of your skin is important. ✨";
+}
+
+function sayHello() {
+  document.getElementById("message").textContent =
+    "Hello! Thanks for visiting my website! 💖";
+}
+
+function goHome() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+function showBeautyTips() {
+  document.getElementById("beautyTip").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+function showAbout() {
+  document.querySelector("section").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+loadUsername();
+displayPosts();
+</script>
+  
 
 </body>
 </html>
