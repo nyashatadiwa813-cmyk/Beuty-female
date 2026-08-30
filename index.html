@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Beauty App</title>
 
-  <style><style>
+  <style>
 body {
   background: linear-gradient(135deg, #ffd6e7, #f5d9ff);
   font-family: Arial, sans-serif;
@@ -79,8 +79,7 @@ input {
 }
   </style>
     
-  </style>
-</head>
+  </head>
 
 <body>
 
@@ -103,14 +102,14 @@ input {
       placeholder="What are you sharing?"
     >
 
-    <button class="blue-button" onclick="createPost()">
+    <button class="pink-button" onclick="createPost()">
       📤 Post
     </button>
 
     <div id="posts"></div>
   </section>
 
-  <section>
+  <section id="about">
     <h2>About Me</h2>
 
     <h3>What I Love</h3>
@@ -345,7 +344,7 @@ input {
     }
 
     function showAbout() {
-      document.querySelector("section").scrollIntoView({
+      document.getElementById("about").scrollIntoView({
         behavior: "smooth"
       });
     }
