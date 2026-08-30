@@ -88,7 +88,7 @@
       placeholder="What are you sharing?"
     >
 
-    <button class="pink-button" onclick="createPost()">
+    <button class="blue-button" onclick="createPost()">
       📤 Post
     </button>
 
@@ -215,10 +215,13 @@
       alert("You are now following BeautyStar! 💖");
     }
 
-    function likePost(button) {
-      const count = button.querySelector("span");
-      count.textContent = Number(count.textContent) + 1;
+  function likePost(button) {
+  const count = button.querySelector("span");
+  const newCount = Number(count.textContent) + 1;
+
+  count.textContent = newCount;
     }
+    
 
     function likeSimplePost(button) {
       const count = button.querySelector("span");
