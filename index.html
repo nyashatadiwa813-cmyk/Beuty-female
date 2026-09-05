@@ -3,90 +3,91 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>My Beauty App</title>
 
   <style>
-body {
-  background: linear-gradient(135deg, #ffd6e7, #f5d9ff);
-  font-family: Arial, sans-serif;
-  text-align: center;
-  margin: 0;
-  padding: 20px;
-  color: #333;
-}
+    body {
+      background: linear-gradient(135deg, #ffd6e7, #f5d9ff);
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
 
-nav {
-  background: white;
-  padding: 10px;
-  border-radius: 20px;
-  margin-bottom: 20px;
-}
+    nav {
+      background: white;
+      padding: 10px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
 
-div {
-  background: white;
-  padding: 15px;
-  margin: 15px;
-  border-radius: 18px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
+    section,
+    div {
+      background: white;
+      padding: 15px;
+      margin: 15px;
+      border-radius: 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
 
-h1 {
-  color: #d63384;
-}
+    h1 {
+      color: #d63384;
+    }
 
-h2 {
-  color: #b23a7a;
-}
+    h2 {
+      color: #b23a7a;
+    }
 
-button {
-  border: none;
-  border-radius: 20px;
-  padding: 12px 20px;
-  margin: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: white;
-}
+    button {
+      border: none;
+      border-radius: 20px;
+      padding: 12px 20px;
+      margin: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: white;
+    }
 
-button:hover {
-  transform: scale(1.05);
-}
+    button:hover {
+      transform: scale(1.05);
+    }
 
-input {
-  padding: 12px;
-  border: 2px solid #ff9acb;
-  border-radius: 15px;
-  font-size: 16px;
-  width: 70%;
-  max-width: 400px;
-}
+    input {
+      padding: 12px;
+      border: 2px solid #ff9acb;
+      border-radius: 15px;
+      font-size: 16px;
+      width: 70%;
+      max-width: 400px;
+    }
 
-.pink-button {
-  background-color: #ff69b4;
-}
+    .pink-button {
+      background-color: #ff69b4;
+    }
 
-.purple-button {
-  background-color: #b19cd9;
-}
+    .purple-button {
+      background-color: #b19cd9;
+    }
 
-.green-button {
-  background-color: #98fb98;
-}
+    .green-button {
+      background-color: #98fb98;
+    }
 
-#posts div {
-  background-color: #fff0f7;
-  border: 1px solid #ffb6d9;
-}
+    #posts div {
+      background-color: #fff0f7;
+      border: 1px solid #ffb6d9;
+    }
   </style>
-    
-  </head>
+</head>
 
 <body>
 
   <nav>
-    <button onclick="goHome()">Home</button>
-    <button onclick="showBeautyTips()">Beauty Tips</button>
-    <button onclick="showAbout()">About</button>
+    <button onclick="goHome()">🏠 Home</button>
+    <button onclick="showBeautyTips()">💄 Beauty Tips</button>
+    <button onclick="showAbout()">ℹ️ About</button>
   </nav>
 
   <h1>Welcome to My Beauty App! 💖</h1>
@@ -94,7 +95,7 @@ input {
   <p>Hi! Welcome to my website. I'm happy you're here.</p>
 
   <section>
-    <h2>Create a Post</h2>
+    <h2>📝 Create a Post</h2>
 
     <input
       type="text"
@@ -113,18 +114,36 @@ input {
     <h2>About Me</h2>
 
     <h3>What I Love</h3>
-    <p>I love beauty, creativity, fashion, and learning new things.</p>
+
+    <p>
+      I love beauty, creativity, fashion, and learning new things.
+    </p>
   </section>
 
   <section>
-    <h2>My Beauty Picks</h2>
+    <h2>✨ My Beauty Picks</h2>
 
-    <h3>Explore</h3>
-    <p>💄 Makeup & Beauty</p>
-    <p>💇 Hairstyles</p>
-    <p>👗 Outfits & Fashion</p>
-    <p>💅 Nails</p>
-    <p>🧴 Skincare</p>
+    <button onclick="showMakeupMessage()">
+      💄 Makeup & Beauty
+    </button>
+
+    <button onclick="showHairstylesMessage()">
+      💇 Hairstyles
+    </button>
+
+    <button onclick="showOutfitsMessage()">
+      👗 Outfits & Fashion
+    </button>
+
+    <button onclick="showNailsMessage()">
+      💅 Nails
+    </button>
+
+    <button onclick="showSkincareMessage()">
+      🧴 Skincare
+    </button>
+
+    <p id="message"></p>
   </section>
 
   <section>
@@ -143,7 +162,9 @@ input {
         Makeup, Fashion, Nails
       </p>
 
-      <button onclick="followUser()">➕ Follow</button>
+      <button onclick="followUser()">
+        ➕ Follow
+      </button>
 
       <button onclick="changeUsername()">
         ✏️ Change Username
@@ -177,26 +198,8 @@ input {
     </div>
   </section>
 
-  <section>
-    <h2>Beauty Categories</h2>
-
-    <button onclick="showMakeupMessage()">
-      💄 Makeup
-    </button>
-
-    <button onclick="showNailsMessage()">
-      💅 Nails
-    </button>
-
-    <button onclick="showSkincareMessage()">
-      ✨ Skincare
-    </button>
-
-    <p id="message"></p>
-  </section>
-
-  <section>
-    <h2>Beauty Tip</h2>
+  <section id="beautyTips">
+    <h2>✨ Beauty Tip</h2>
 
     <button class="green-button" onclick="getBeautyTip()">
       ✨ Get a Beauty Tip
@@ -206,6 +209,7 @@ input {
   </section>
 
   <script>
+
     function changeUsername() {
       const newName = prompt("Enter your new username:");
 
@@ -213,6 +217,7 @@ input {
         const username = newName.trim();
 
         document.getElementById("username").textContent = username;
+
         localStorage.setItem("username", username);
       }
     }
@@ -229,36 +234,46 @@ input {
       alert("You are now following BeautyStar! 💖");
     }
 
-  function likePost(button) {
-  const count = button.querySelector("span");
-  const newCount = Number(count.textContent) + 1;
+    function likePost(button) {
+      const count = button.querySelector("span");
 
-  count.textContent = newCount;
+      const newCount = Number(count.textContent) + 1;
+
+      count.textContent = newCount;
     }
-    
 
     function likeSimplePost(button) {
       const count = button.querySelector("span");
-      count.textContent = Number(count.textContent) + 1;
+
+      const newCount = Number(count.textContent) + 1;
+
+      count.textContent = newCount;
     }
 
-  function reportPost() {
-  alert("Thanks for reporting this post.");
-  }
+    function reportPost() {
+      alert("Thanks for reporting this post.");
+    }
 
     function createPost() {
       const textBox = document.getElementById("postText");
+
       const text = textBox.value.trim();
 
       if (text === "") {
         alert("Please write something first!");
+
         return;
       }
 
-      const posts = JSON.parse(localStorage.getItem("posts") || "[]");
+      const posts =
+        JSON.parse(localStorage.getItem("posts") || "[]");
 
       posts.push(text);
-      localStorage.setItem("posts", JSON.stringify(posts));
+
+      localStorage.setItem(
+        "posts",
+        JSON.stringify(posts)
+      );
 
       displayPosts();
 
@@ -268,19 +283,25 @@ input {
     }
 
     function displayPosts() {
-      const posts = JSON.parse(localStorage.getItem("posts") || "[]");
-      const postsContainer = document.getElementById("posts");
+      const posts =
+        JSON.parse(localStorage.getItem("posts") || "[]");
+
+      const postsContainer =
+        document.getElementById("posts");
 
       postsContainer.innerHTML = "";
 
       posts.forEach(function(text) {
+
         const post = document.createElement("div");
 
         post.innerHTML =
           "<p>" + escapeHtml(text) + "</p>" +
+
           "<button onclick='likePost(this)'>" +
           "❤️ Like <span>0</span>" +
           "</button>" +
+
           "<button onclick='reportPost()'>" +
           "🚩 Report" +
           "</button>";
@@ -291,38 +312,52 @@ input {
 
     function escapeHtml(text) {
       const div = document.createElement("div");
+
       div.textContent = text;
+
       return div.innerHTML;
     }
 
     function getBeautyTip() {
+
       const tips = [
-        "Remember to be gentle with your skin. ✨",
-        "Drink enough water and take care of yourself. 💧",
-        "Have fun experimenting with your style! 💖",
-        "Clean your makeup tools regularly. 💄",
-        "Choose beauty routines that make you feel comfortable and confident. 🌸"
+        "✨ Be gentle with your skin.",
+        "💖 Have fun exploring your personal style!",
+        "💄 Keep your makeup tools clean.",
+        "🌸 Take time for yourself.",
+        "✨ Enjoy being creative with beauty and fashion!"
       ];
 
       const randomTip =
         tips[Math.floor(Math.random() * tips.length)];
 
-      document.getElementById("beautyTip").textContent = randomTip;
+      document.getElementById("beautyTip").textContent =
+        randomTip;
     }
 
     function showMakeupMessage() {
       document.getElementById("message").textContent =
-        "Makeup is a fun way to explore creativity! 💄";
+        "💄 Makeup is a fun way to explore creativity!";
     }
 
     function showNailsMessage() {
       document.getElementById("message").textContent =
-        "Nails can be a fun and creative way to express yourself! 💅";
+        "💅 Nails can be a fun and creative way to express yourself!";
     }
 
     function showSkincareMessage() {
       document.getElementById("message").textContent =
-        "Taking gentle care of your skin is important. ✨";
+        "✨ Be gentle with your skin and keep your routine simple!";
+    }
+
+    function showHairstylesMessage() {
+      document.getElementById("message").textContent =
+        "💇 Explore different hairstyles and styles you enjoy!";
+    }
+
+    function showOutfitsMessage() {
+      document.getElementById("message").textContent =
+        "👗 Explore different fashion styles and express your creativity!";
     }
 
     function sayHello() {
@@ -338,7 +373,7 @@ input {
     }
 
     function showBeautyTips() {
-      document.getElementById("beautyTip").scrollIntoView({
+      document.getElementById("beautyTips").scrollIntoView({
         behavior: "smooth"
       });
     }
@@ -350,7 +385,9 @@ input {
     }
 
     loadUsername();
+
     displayPosts();
+
   </script>
 
 </body>
