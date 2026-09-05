@@ -95,6 +95,13 @@
       max-width:400px;
     }
 
+    .search-box {
+      width: 100%;
+      max-width: 500px;
+      margin: 15px auto;
+      display: block;
+    }
+
     .posts-list > div{
       background-color:#fff0f7;
       border:1px solid #ffb6d9;
@@ -259,6 +266,7 @@
       gap: 8px;
       flex-wrap: wrap;
       margin-bottom: 15px;
+      justify-content: center;
     }
 
     .filter-btn {
@@ -280,6 +288,17 @@
       transform: scale(1.05);
     }
 
+    /* Beauty category tags */
+    .beauty-tag {
+      display: inline-block;
+      background: var(--pink);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 12px;
+      margin: 4px 4px 4px 0;
+    }
+
     /* Age verification banner */
     .age-warning {
       background: #fff3cd;
@@ -299,6 +318,13 @@
     :focus{outline: 3px solid rgba(211,51,132,0.18); outline-offset:2px}
     .notice{padding:8px 12px;border-radius:10px;background:#fff3; display:inline-block; margin-top:8px}
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    .no-results {
+      text-align: center;
+      padding: 20px;
+      color: #666;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -325,7 +351,34 @@
         <div id="postNotices" role="status" aria-live="polite" class="notice" hidden></div>
       </form>
 
-      <div id="posts" class="posts-list" aria-live="polite"></div>
+      <hr style="margin: 15px 0; border: none; border-top: 1px solid #ddd;">
+
+      <!-- Search Box -->
+      <div style="text-align: center; margin-bottom: 15px;">
+        <label for="beautySearch" class="sr-only">Search posts</label>
+        <input 
+          id="beautySearch" 
+          type="text" 
+          class="search-box" 
+          placeholder="🔍 Search posts..." 
+          aria-label="Search beauty posts"
+        />
+      </div>
+
+      <!-- Beauty Category Filters -->
+      <div style="text-align: center; margin-bottom: 15px;">
+        <h3 style="margin-top: 0; margin-bottom: 10px;">✨ Filter by Beauty Category</h3>
+        <div class="filter-container">
+          <button class="beauty-filter-btn active" data-category="all">All Posts</button>
+          <button class="beauty-filter-btn" data-category="makeup">💄 Makeup</button>
+          <button class="beauty-filter-btn" data-category="skincare">🧴 Skincare</button>
+          <button class="beauty-filter-btn" data-category="haircare">💇 Hair Care</button>
+          <button class="beauty-filter-btn" data-category="nails">💅 Nails</button>
+          <button class="beauty-filter-btn" data-category="fashion">👗 Fashion</button>
+        </div>
+      </div>
+
+      <div id="posts" class="posts-list" aria-live="polite" aria-label="Posts list"></div>
     </section>
 
     <section id="about" class="card" aria-labelledby="about-title">
@@ -443,10 +496,12 @@
     const LS_KEYS = {
       username: 'bf_username_v1',
       posts: 'bf_posts_v1',
+      postCategories: 'bf_post_categories_v1',
       likesPrefix: 'bf_like_',
       birthDate: 'bf_birthdate_v1',
       partyJoined: 'bf_party_joined_v1',
-      currentFilter: 'bf_party_filter_v1'
+      currentFilter: 'bf_party_filter_v1',
+      beautyFilter: 'bf_beauty_filter_v1'
     };
 
     // Party time configuration
@@ -590,7 +645,7 @@
       setTimeout(() => { el.hidden = true; }, hideAfter);
     }
 
-    // Posts: load/display/create
+    // Posts: load/display/create with categories
     function loadPosts() {
       return JSON.parse(localStorage.getItem(LS_KEYS.posts) || '[]');
     }
@@ -598,23 +653,79 @@
       localStorage.setItem(LS_KEYS.posts, JSON.stringify(posts));
     }
 
-    function displayPosts() {
+    function loadPostCategories() {
+      return JSON.parse(localStorage.getItem(LS_KEYS.postCategories) || '[]');
+    }
+    function savePostCategories(categories) {
+      localStorage.setItem(LS_KEYS.postCategories, JSON.stringify(categories));
+    }
+
+    function detectCategory(text) {
+      const lower = text.toLowerCase();
+      if (lower.includes('makeup') || lower.includes('lipstick') || lower.includes('foundation') || lower.includes('eyeshadow')) return 'makeup';
+      if (lower.includes('skin') || lower.includes('moistur') || lower.includes('cleanser') || lower.includes('acne')) return 'skincare';
+      if (lower.includes('hair') || lower.includes('shampoo') || lower.includes('conditioner') || lower.includes('braid')) return 'haircare';
+      if (lower.includes('nail') || lower.includes('polish') || lower.includes('manicure')) return 'nails';
+      if (lower.includes('outfit') || lower.includes('dress') || lower.includes('fashion') || lower.includes('style')) return 'fashion';
+      return 'all';
+    }
+
+    function displayPosts(filterCategory = 'all', searchQuery = '') {
       const posts = loadPosts();
+      const categories = loadPostCategories();
       const container = document.getElementById('posts');
       container.innerHTML = '';
-      posts.forEach((text, idx) => {
+
+      let filteredPosts = posts.map((text, idx) => ({
+        text,
+        index: idx,
+        category: categories[idx] || 'all'
+      }));
+
+      // Apply category filter
+      if (filterCategory !== 'all') {
+        filteredPosts = filteredPosts.filter(p => p.category === filterCategory);
+      }
+
+      // Apply search filter
+      if (searchQuery.trim()) {
+        const query = searchQuery.toLowerCase();
+        filteredPosts = filteredPosts.filter(p => p.text.toLowerCase().includes(query));
+      }
+
+      if (filteredPosts.length === 0) {
+        const noResults = document.createElement('div');
+        noResults.className = 'no-results';
+        noResults.textContent = searchQuery ? `No posts found for "${searchQuery}"` : 'No posts in this category yet.';
+        container.appendChild(noResults);
+        return;
+      }
+
+      filteredPosts.forEach((post) => {
         const item = document.createElement('div');
-        const safe = escapeHtml(text);
+        const safe = escapeHtml(post.text);
+        const categoryEmoji = {
+          makeup: '💄',
+          skincare: '🧴',
+          haircare: '💇',
+          nails: '💅',
+          fashion: '👗',
+          all: '✨'
+        }[post.category] || '✨';
+
         item.innerHTML = `
+          <div>
+            <span class="beauty-tag">${categoryEmoji} ${post.category.charAt(0).toUpperCase() + post.category.slice(1)}</span>
+          </div>
           <p>${safe}</p>
           <div style="display:flex;gap:8px;align-items:center">
-            <button class="post-like-btn" data-index="${idx}" aria-pressed="false">❤️ Like <span class="count">0</span></button>
+            <button class="post-like-btn" data-index="${post.index}" aria-pressed="false">❤️ Like <span class="count">0</span></button>
             <button class="report-btn" type="button">🚩 Report</button>
           </div>
         `;
         container.appendChild(item);
         // restore like count if saved
-        const likeKey = LS_KEYS.likesPrefix + 'post_' + idx;
+        const likeKey = LS_KEYS.likesPrefix + 'post_' + post.index;
         const saved = Number(localStorage.getItem(likeKey) || '0');
         item.querySelector('.count').textContent = saved;
       });
@@ -631,11 +742,35 @@
         return;
       }
       const posts = loadPosts();
+      const categories = loadPostCategories();
+      const detectedCategory = detectCategory(text);
       posts.push(text);
+      categories.push(detectedCategory);
       savePosts(posts);
+      savePostCategories(categories);
       displayPosts();
       input.value = '';
       showNotice('postNotices','Your post was created! 🎉');
+    });
+
+    // Search functionality
+    const searchInput = document.getElementById('beautySearch');
+    searchInput.addEventListener('input', (e) => {
+      const searchQuery = e.target.value;
+      const currentFilter = localStorage.getItem(LS_KEYS.beautyFilter) || 'all';
+      displayPosts(currentFilter, searchQuery);
+    });
+
+    // Beauty filter functionality
+    document.querySelectorAll('.beauty-filter-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.beauty-filter-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        const filterCategory = e.target.dataset.category;
+        localStorage.setItem(LS_KEYS.beautyFilter, filterCategory);
+        const searchQuery = searchInput.value;
+        displayPosts(filterCategory, searchQuery);
+      });
     });
 
     // Filter functionality
@@ -774,6 +909,10 @@
     // Restore last filter
     const lastFilter = localStorage.getItem(LS_KEYS.currentFilter) || 'all';
     document.querySelector(`[data-filter="${lastFilter}"]`).click();
+
+    // Restore last beauty filter
+    const lastBeautyFilter = localStorage.getItem(LS_KEYS.beautyFilter) || 'all';
+    document.querySelector(`[data-category="${lastBeautyFilter}"]`).click();
 
     // Check party time every minute
     setInterval(checkPartyTime, 60000);
