@@ -1,0 +1,13 @@
+{
+  "short_name": "Beauty",
+  "name": "Beauty App",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#06b6d4",
+  "theme_color": "#0369a1",
+  "icons": [
+    { "src": "/icons/icon-192.svg", "sizes": "192x192", "type": "image/svg+xml" },
+    { "src": "/icons/icon-512.svg", "sizes": "512x512", "type": "image/svg+xml" }
+  ]
+}
