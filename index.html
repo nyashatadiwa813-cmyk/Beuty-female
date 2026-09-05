@@ -388,7 +388,19 @@
       document.getElementById("message").textContent =
         "Hello! Thanks for visiting my website! 💖";
     }
+    function playCharacter() {
+      document.getElementById("character").classList.add("playing");
 
+      document.getElementById("characterText").textContent =
+        "🎬 Character video is playing! ✨";
+    }
+
+    function stopCharacter() {
+      document.getElementById("character").classList.remove("playing");
+
+      document.getElementById("characterText").textContent =
+        "⏹️ Video stopped.";
+    }
     function goHome() {
       window.scrollTo({
         top: 0,
