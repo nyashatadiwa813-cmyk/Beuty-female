@@ -10,18 +10,20 @@
       --pink:#ff69b4;
       --purple:#b19cd9;
       --green:#98fb98;
-      --bg1:#ffd6e7;
-      --bg2:#f5d9ff;
+      --blue-dark:#1e3a8a;
+      --blue-light:#60a5fa;
+      --blue-accent:#3b82f6;
       --card:#ffffff;
       --muted:#666;
     }
 
-    html,body{height:100%}
+    html,body{height:100%;margin:0;padding:0}
     body {
-      background: linear-gradient(135deg, var(--bg1), var(--bg2));
-      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 25%, #0369a1 50%, #0284c7 75%, #06b6d4 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-align: center;
-      margin: 0;
       padding: 20px;
       color: #333;
       -webkit-font-smoothing:antialiased;
@@ -49,6 +51,15 @@
       border-radius:6px;
     }
 
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(30, 58, 138, 0.2);
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+    }
+
     header nav{
       display:flex;
       gap:8px;
@@ -58,41 +69,125 @@
       padding:10px;
       border-radius:20px;
       margin-bottom:20px;
-      box-shadow:0 4px 8px rgba(0,0,0,0.06);
+      box-shadow:0 4px 8px rgba(30, 58, 138, 0.1);
     }
     nav button{
       border:none;
       border-radius:12px;
-      padding:8px 12px;
+      padding:10px 16px;
       font-size:16px;
       cursor:pointer;
-      background:#fff;
+      background: linear-gradient(135deg, var(--blue-accent), var(--blue-light));
+      color: white;
+      font-weight: 600;
       transition:transform .12s ease, box-shadow .12s ease;
     }
-    nav button:hover, nav button:focus{transform:scale(1.03); box-shadow:0 6px 14px rgba(0,0,0,0.08); outline:none}
+    nav button:hover, nav button:focus{
+      transform:scale(1.05); 
+      box-shadow:0 8px 16px rgba(30, 58, 138, 0.3); 
+      outline:none
+    }
+    
     main{max-width:900px;margin:0 auto;text-align:left}
 
     .card {
-      background: var(--card);
-      padding: 15px;
+      background: rgba(255, 255, 255, 0.98);
+      padding: 20px;
       margin: 15px 0;
-      border-radius: 18px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(30, 58, 138, 0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    h1{color:#d63384;margin:0 0 8px}
-    h2{color:#b23a7a;margin:0 0 8px}
-    button.primary{background:var(--pink); color:#fff; border-radius:18px; padding:10px 14px; border:none}
-    button.secondary{background:var(--purple); color:#fff; border-radius:18px; padding:10px 14px; border:none}
-    button.green{background:var(--green); border:none; color:#000; border-radius:12px; padding:8px 10px}
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(30, 58, 138, 0.2);
+    }
+
+    h1{
+      color: var(--blue-dark);
+      margin:0 0 8px;
+      font-size: 2.5em;
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue-accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    h2{
+      color: var(--blue-dark);
+      margin:0 0 12px;
+      font-size: 1.5em;
+    }
+    
+    h3{
+      color: var(--blue-accent);
+    }
+
+    button.primary{
+      background: linear-gradient(135deg, var(--pink), #ff1493);
+      color:#fff; 
+      border-radius:18px; 
+      padding:10px 16px; 
+      border:none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    button.primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(255, 105, 180, 0.3);
+    }
+
+    button.secondary{
+      background: linear-gradient(135deg, var(--purple), #a78bfa);
+      color:#fff; 
+      border-radius:18px; 
+      padding:10px 16px; 
+      border:none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    button.secondary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(177, 156, 217, 0.3);
+    }
+
+    button.green{
+      background: linear-gradient(135deg, var(--green), #84cc16);
+      border:none; 
+      color:#000; 
+      border-radius:12px; 
+      padding:8px 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    
+    button.green:hover {
+      transform: scale(1.05);
+    }
 
     input[type="text"], input[type="date"], input[type="number"], select{
       padding:12px;
-      border:2px solid #ff9acb;
+      border:2px solid var(--blue-light);
       border-radius:15px;
       font-size:16px;
       width:70%;
       max-width:400px;
+      background: rgba(255, 255, 255, 0.9);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input[type="text"]:focus, input[type="date"]:focus, input[type="number"]:focus, select:focus{
+      border-color: var(--blue-accent);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      outline: none;
     }
 
     .search-box {
@@ -103,11 +198,17 @@
     }
 
     .posts-list > div{
-      background-color:#fff0f7;
-      border:1px solid #ffb6d9;
-      padding:10px;
-      margin:8px 0;
-      border-radius:12px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(96, 165, 250, 0.05));
+      border:2px solid var(--blue-light);
+      padding:15px;
+      margin:12px 0;
+      border-radius:15px;
+      transition: all 0.3s ease;
+    }
+
+    .posts-list > div:hover {
+      border-color: var(--blue-accent);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
     }
 
     /* Character animation */
@@ -120,22 +221,35 @@
     }
 
     /* party groups (moved to style from body) */
-    .party-group { padding:15px; margin:10px; border-radius:15px; font-weight:bold; color:#333; }
-    .group-blue { background:#87ceeb; }
-    .group-pink { background:#ffb6c1; }
-    .group-yellow { background:#fff176; }
-    .group-green { background:#90ee90; }
-    .group-white { background:#ffffff; }
-    .group-purple { background:#d8b4fe; }
-    .group-orange { background:#ffcc80; }
-    .group-red { background:#ff9999; }
-    .group-cyan { background:#80deea; }
-    .group-brown { background:#c9a27e; }
-    .group-grey { background:#d3d3d3; }
-    .group-violet { background:#b39ddb; }
-    .group-turquoise { background:#80cbc4; }
-    .group-coral { background:#ffab91; }
-    .group-magenta { background:#f48fb1; }
+    .party-group { 
+      padding:15px; 
+      margin:10px; 
+      border-radius:15px; 
+      font-weight:bold; 
+      color:#fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+    
+    .party-group:hover {
+      transform: translateY(-3px);
+    }
+
+    .group-blue { background: linear-gradient(135deg, #3b82f6, #0284c7); }
+    .group-pink { background: linear-gradient(135deg, #ec4899, #f472b6); }
+    .group-yellow { background: linear-gradient(135deg, #fbbf24, #fcd34d); }
+    .group-green { background: linear-gradient(135deg, #10b981, #34d399); }
+    .group-white { background: linear-gradient(135deg, #f3f4f6, #e5e7eb); color: #333; }
+    .group-purple { background: linear-gradient(135deg, #a855f7, #d8b4fe); }
+    .group-orange { background: linear-gradient(135deg, #f97316, #fb923c); }
+    .group-red { background: linear-gradient(135deg, #ef4444, #f87171); }
+    .group-cyan { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
+    .group-brown { background: linear-gradient(135deg, #92400e, #b45309); }
+    .group-grey { background: linear-gradient(135deg, #6b7280, #9ca3af); }
+    .group-violet { background: linear-gradient(135deg, #7c3aed, #c4b5fd); }
+    .group-turquoise { background: linear-gradient(135deg, #0d9488, #2dd4bf); }
+    .group-coral { background: linear-gradient(135deg, #ff7f50, #ffb088); }
+    .group-magenta { background: linear-gradient(135deg, #ec407a, #f06292); }
 
     /* Modal styles */
     .modal {
@@ -146,7 +260,8 @@
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0,0,0,0.4);
+      background-color: rgba(30, 58, 138, 0.5);
+      backdrop-filter: blur(5px);
       animation: fadeIn 0.3s ease;
     }
 
@@ -162,13 +277,14 @@
     }
 
     .modal-content {
-      background-color: #fff;
+      background: linear-gradient(135deg, #ffffff, #f0f4f8);
       padding: 30px;
       border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      box-shadow: 0 20px 60px rgba(30, 58, 138, 0.3);
       max-width: 500px;
       width: 90%;
       animation: slideUp 0.3s ease;
+      border: 1px solid rgba(96, 165, 250, 0.2);
     }
 
     @keyframes slideUp {
@@ -177,7 +293,7 @@
     }
 
     .modal-content h2 {
-      color: #d63384;
+      color: var(--blue-dark);
       margin-top: 0;
     }
 
@@ -185,7 +301,7 @@
       display: block;
       margin: 12px 0 6px;
       font-weight: bold;
-      color: #333;
+      color: var(--blue-dark);
       text-align: left;
     }
 
@@ -207,6 +323,7 @@
       border: none;
       border-radius: 12px;
       font-size: 14px;
+      font-weight: 600;
       cursor: pointer;
       transition: transform 0.2s ease;
     }
@@ -216,12 +333,12 @@
     }
 
     .btn-confirm {
-      background: var(--pink);
+      background: linear-gradient(135deg, var(--blue-accent), var(--blue-light));
       color: #fff;
     }
 
     .btn-cancel {
-      background: #ccc;
+      background: #e5e7eb;
       color: #333;
     }
 
@@ -230,14 +347,15 @@
       position: fixed;
       top: 20px;
       right: 20px;
-      background: var(--pink);
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue-accent));
       color: white;
       padding: 15px 20px;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 8px 24px rgba(30, 58, 138, 0.3);
       z-index: 3000;
       animation: slideInRight 0.3s ease;
       max-width: 300px;
+      font-weight: 600;
     }
 
     @keyframes slideInRight {
@@ -246,68 +364,74 @@
     }
 
     .notification.success {
-      background: var(--green);
-      color: #000;
+      background: linear-gradient(135deg, #10b981, #34d399);
+      color: #fff;
     }
 
     .notification.warning {
-      background: #ffb347;
+      background: linear-gradient(135deg, #f59e0b, #fbbf24);
       color: #333;
     }
 
     .notification.error {
-      background: #ff6b6b;
+      background: linear-gradient(135deg, #ef4444, #f87171);
       color: white;
     }
 
     /* Filter styles */
     .filter-container {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       flex-wrap: wrap;
       margin-bottom: 15px;
       justify-content: center;
     }
 
-    .filter-btn {
-      padding: 8px 12px;
-      border: 2px solid var(--pink);
+    .filter-btn, .beauty-filter-btn {
+      padding: 10px 14px;
+      border: 2px solid var(--blue-light);
       background: white;
-      color: var(--pink);
+      color: var(--blue-dark);
       border-radius: 12px;
       cursor: pointer;
+      font-weight: 600;
       transition: all 0.2s ease;
     }
 
-    .filter-btn.active {
-      background: var(--pink);
-      color: white;
+    .filter-btn:hover, .beauty-filter-btn:hover {
+      transform: scale(1.08);
+      border-color: var(--blue-accent);
     }
 
-    .filter-btn:hover {
-      transform: scale(1.05);
+    .filter-btn.active, .beauty-filter-btn.active {
+      background: linear-gradient(135deg, var(--blue-accent), var(--blue-light));
+      color: white;
+      border-color: var(--blue-dark);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
     }
 
     /* Beauty category tags */
     .beauty-tag {
       display: inline-block;
-      background: var(--pink);
+      background: linear-gradient(135deg, var(--blue-accent), var(--blue-light));
       color: white;
-      padding: 4px 8px;
+      padding: 6px 12px;
       border-radius: 8px;
       font-size: 12px;
+      font-weight: 600;
       margin: 4px 4px 4px 0;
     }
 
     /* Age verification banner */
     .age-warning {
-      background: #fff3cd;
+      background: linear-gradient(135deg, #fef08a, #fce181);
       border: 2px solid #ff6b6b;
       color: #333;
       padding: 12px;
       border-radius: 10px;
       margin-bottom: 10px;
       display: none;
+      font-weight: 600;
     }
 
     .age-warning.show {
@@ -315,15 +439,29 @@
     }
 
     /* focus-visible helpers */
-    :focus{outline: 3px solid rgba(211,51,132,0.18); outline-offset:2px}
-    .notice{padding:8px 12px;border-radius:10px;background:#fff3; display:inline-block; margin-top:8px}
+    :focus{outline: 3px solid rgba(59, 130, 246, 0.3); outline-offset:2px}
+    .notice{
+      padding:8px 12px;
+      border-radius:10px;
+      background: linear-gradient(135deg, var(--blue-light), rgba(96, 165, 250, 0.3));
+      display:inline-block; 
+      margin-top:8px;
+      color: var(--blue-dark);
+      font-weight: 600;
+    }
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
     .no-results {
       text-align: center;
-      padding: 20px;
-      color: #666;
+      padding: 30px 20px;
+      color: var(--blue-dark);
       font-style: italic;
+      font-size: 1.1em;
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid rgba(59, 130, 246, 0.2);
     }
   </style>
 </head>
@@ -336,7 +474,8 @@
       <button id="tipsBtn" type="button">💄 Beauty Tips</button>
       <button id="aboutBtn" type="button">ℹ️ About</button>
     </nav>
-    <h1>Welcome to My Beauty App! 💖</h1>
+    <h1>✨ Beauty App ✨</h1>
+    <p style="margin: 0; color: #0369a1; font-weight: 600;">Your personal beauty companion 💖</p>
     <p class="sr-only" id="welcome">Hi! Welcome to my website. I'm happy you're here.</p>
   </header>
 
@@ -347,14 +486,14 @@
       <form id="postForm" aria-describedby="postHelp">
         <label for="postText" class="sr-only">Write something</label>
         <input id="postText" name="postText" type="text" placeholder="What are you sharing?" aria-required="true" />
-        <button class="primary" type="submit">📤 Post</button>
+        <button class="primary" type="submit" style="margin-left: 10px;">📤 Post</button>
         <div id="postNotices" role="status" aria-live="polite" class="notice" hidden></div>
       </form>
 
-      <hr style="margin: 15px 0; border: none; border-top: 1px solid #ddd;">
+      <hr style="margin: 15px 0;">
 
       <!-- Search Box -->
-      <div style="text-align: center; margin-bottom: 15px;">
+      <div style="text-align: center; margin-bottom: 20px;">
         <label for="beautySearch" class="sr-only">Search posts</label>
         <input 
           id="beautySearch" 
@@ -366,8 +505,8 @@
       </div>
 
       <!-- Beauty Category Filters -->
-      <div style="text-align: center; margin-bottom: 15px;">
-        <h3 style="margin-top: 0; margin-bottom: 10px;">✨ Filter by Beauty Category</h3>
+      <div style="text-align: center; margin-bottom: 20px;">
+        <h3 style="margin-top: 0; margin-bottom: 12px;">✨ Filter by Beauty Category</h3>
         <div class="filter-container">
           <button class="beauty-filter-btn active" data-category="all">All Posts</button>
           <button class="beauty-filter-btn" data-category="makeup">💄 Makeup</button>
@@ -396,40 +535,40 @@
 
       <h2>About Me</h2>
       <h3>What I Love</h3>
-      <p>I love beauty, creativity, fashion, and learning new things.</p>
+      <p>I love beauty, creativity, fashion, and learning new things. Welcome to my world! 💖</p>
     </section>
 
     <section class="card" aria-labelledby="picks-title">
       <h2 id="picks-title">✨ My Beauty Picks</h2>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
         <button data-msg="💄 Makeup is a fun way to explore creativity!" class="secondary pick">💄 Makeup & Beauty</button>
         <button data-msg="💇 Explore different hairstyles and styles you enjoy!" class="secondary pick">💇 Hairstyles</button>
         <button data-msg="👗 Explore different fashion styles and express your creativity!" class="secondary pick">👗 Outfits & Fashion</button>
         <button data-msg="💅 Nails can be a fun and creative way to express yourself!" class="secondary pick">💅 Nails</button>
         <button data-msg="✨ Be gentle with your skin and keep your routine simple!" class="secondary pick">🧴 Skincare</button>
       </div>
-      <p id="message" aria-live="polite" style="margin-top:10px"></p>
+      <p id="message" aria-live="polite" style="margin-top:10px;text-align:center;color:var(--blue-dark);font-weight:600;"></p>
     </section>
 
     <section class="card" aria-labelledby="profile-title">
       <h2 id="profile-title">✨ Today's Beauty Post</h2>
 
-      <div style="margin-bottom:12px">
+      <div style="margin-bottom:12px;padding:15px;background:linear-gradient(135deg,rgba(59,130,246,0.1),rgba(96,165,250,0.1));border-radius:15px;">
         <h3>👤 My Profile</h3>
         <p><strong>Username:</strong> <span id="username">BeautyStar</span></p>
         <p><strong>Interests:</strong> Makeup, Fashion, Nails</p>
         <p id="ageDisplay" style="display:none;"><strong>Age:</strong> <span id="displayAge">-</span></p>
-        <button id="followBtn" type="button">➕ Follow</button>
-        <button id="changeNameBtn" type="button">✏️ Change Username</button>
+        <button id="followBtn" type="button" class="primary" style="margin-right: 10px;">➕ Follow</button>
+        <button id="changeNameBtn" type="button" class="primary">✏️ Change Username</button>
       </div>
 
-      <div style="margin-bottom:8px">
-        <p>💄 Easy everyday makeup ideas</p>
+      <div style="margin-bottom:8px;padding:12px;background:rgba(59,130,246,0.05);border-radius:12px;">
+        <p style="margin-top:0;">💄 Easy everyday makeup ideas</p>
         <button class="like-btn" data-key="featured-like" aria-pressed="false">❤️ Like <span class="count">0</span></button>
         <button class="report-btn" type="button">🚩 Report</button>
       </div>
 
-      <div>
+      <div style="padding:12px;background:rgba(59,130,246,0.05);border-radius:12px;">
         <h3>👗 Outfit of the Day</h3>
         <p>✨ Casual fashion inspiration</p>
         <button class="like-btn" data-key="outfit-like" aria-pressed="false">❤️ Like <span class="count">0</span></button>
@@ -438,9 +577,9 @@
     </section>
 
     <section id="beautyTips" class="card" aria-labelledby="tips-title">
-      <h2 id="tips-title">✨ Beauty Tip</h2>
+      <h2 id="tips-title">✨ Daily Beauty Tip</h2>
       <button id="getTipBtn" class="green" type="button">✨ Get a Beauty Tip</button>
-      <p id="beautyTip" aria-live="polite"></p>
+      <p id="beautyTip" aria-live="polite" style="color:var(--blue-dark);font-weight:600;margin-top:12px;"></p>
     </section>
 
     <section id="partyTime" class="card" aria-labelledby="party-title">
@@ -449,8 +588,8 @@
       </div>
       
       <h2 id="party-title">🎉 Party Time</h2>
-      <p>🕗 Every day: 8:00 PM - 9:00 PM</p>
-      <p id="partyNotification" style="color:#d63384;font-weight:bold;"></p>
+      <p style="color:var(--blue-dark);font-weight:600;">🕗 Every day: 8:00 PM - 9:00 PM</p>
+      <p id="partyNotification" style="color:var(--blue-dark);font-weight:bold;"></p>
       
       <h3>Your Party Group</h3>
       <div id="myGroup" class="party-group group-pink">Loading your group...</div>
@@ -467,9 +606,9 @@
       </div>
 
       <div id="partyGroups" aria-live="polite"></div>
-      <p id="partyMessage">Party Time starts at 8:00 PM! ✨</p>
+      <p id="partyMessage" style="text-align:center;color:var(--blue-dark);font-weight:600;">Party Time starts at 8:00 PM! ✨</p>
 
-      <button id="joinPartyBtn" class="primary" type="button" style="margin-top:15px;">🎉 Join Party</button>
+      <button id="joinPartyBtn" class="primary" type="button" style="margin-top:15px;width:100%;max-width:none;">🎉 Join Party</button>
     </section>
   </main>
 
@@ -808,7 +947,6 @@
       }
 
       if (target.matches('.report-btn')) {
-        // harmless in-page feedback instead of alert
         showNotice('postNotices','Thanks for reporting this post.');
       }
 
