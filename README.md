@@ -1,3 +1,5 @@
+[![Demo](https://img.shields.io/badge/demo-View%20Site-blue?style=for-the-badge)](https://nyashatadiwa813-cmyk.github.io/Beuty-female/)
+
 # ✨ Beauty App ✨
 
 A beautiful, interactive web application for sharing beauty tips, creating posts, and connecting with others in a fun and safe community.
@@ -79,7 +81,7 @@ This project is open source and available under the MIT License.
 
 ## 💬 About
 
-Welcome to my Beauty App! This is a passion project celebrating creativity, personal style, and healthy habits. Whether you love makeup, skincare, fashion, or just want to connect with others who share your interests, you're in the right place! 💖
+Welcome to my Beauty App! This is a passion project celebrating creativity, personal style, and healthy habits. Whether you love makeup, skincare, fashion, or just want to connect with others who share your interests, this is a welcoming space to explore and create.
 
 ---
 
