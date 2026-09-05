@@ -7,6 +7,19 @@
   <title>My Beauty App</title>
 
   <style>
+    #character.playing {
+  animation: bounceCharacter 1s infinite alternate;
+}
+
+@keyframes bounceCharacter {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-20px);
+  }
+}
     body {
       background: linear-gradient(135deg, #ffd6e7, #f5d9ff);
       font-family: Arial, sans-serif;
