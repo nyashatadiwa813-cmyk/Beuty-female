@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#0369a1">
   <title>My Beauty App</title>
 
   <style>
@@ -982,78 +984,4 @@
     document.getElementById('tipsBtn').addEventListener('click', () => document.getElementById('beautyTips').scrollIntoView({behavior:'smooth'}));
     document.getElementById('aboutBtn').addEventListener('click', () => document.getElementById('about').scrollIntoView({behavior:'smooth'}));
     document.getElementById('changeNameBtn').addEventListener('click', changeUsername);
-    document.getElementById('followBtn').addEventListener('click', () => showNotice('postNotices','You are now following this user! 💖'));
-
-    document.getElementById('joinPartyBtn').addEventListener('click', () => {
-      if (!isUserOldEnough()) {
-        openAgeModal();
-      } else {
-        showNotification('🎉 You joined the party! Have fun!', 'success');
-      }
-    });
-
-    // beauty tips
-    document.getElementById('getTipBtn').addEventListener('click', () => {
-      const tips = [
-        '✨ Be gentle with your skin.',
-        '💖 Have fun exploring your personal style!',
-        '💄 Keep your makeup tools clean.',
-        '🌸 Take time for yourself.',
-        '✨ Enjoy being creative with beauty and fashion!'
-      ];
-      const randomTip = tips[Math.floor(Math.random() * tips.length)];
-      document.getElementById('beautyTip').textContent = randomTip;
-    });
-
-    // Close modal when clicking outside
-    window.addEventListener('click', (e) => {
-      const modal = document.getElementById('ageModal');
-      if (e.target === modal) {
-        closeAgeModal();
-      }
-    });
-
-    // initial rendering
-    loadUsername();
-    displayPosts();
-    updateAgeDisplay();
-    updatePartyUI();
-    checkPartyTime();
-
-    // restore featured/outfit likes from localStorage into count spans (if any)
-    document.querySelectorAll('.like-btn').forEach(btn => {
-      const key = btn.dataset.key ? LS_KEYS.likesPrefix + btn.dataset.key : null;
-      if (key) {
-        const countSpan = btn.querySelector('.count');
-        if (countSpan) countSpan.textContent = localStorage.getItem(key) || '0';
-      }
-    });
-
-    // initial party groups content (example for demo)
-    const partyGroups = document.getElementById('partyGroups');
-    const sampleGroups = [
-      { name: 'Blue Vibes', color: 'group-blue' },
-      { name: 'Pink Stars', color: 'group-pink' },
-      { name: 'Golden Hour', color: 'group-yellow' },
-      { name: 'Green Glam', color: 'group-green' }
-    ];
-    sampleGroups.forEach((g) => {
-      const d = document.createElement('div');
-      d.className = 'party-group ' + g.color;
-      d.textContent = g.name;
-      partyGroups.appendChild(d);
-    });
-
-    // Restore last filter
-    const lastFilter = localStorage.getItem(LS_KEYS.currentFilter) || 'all';
-    document.querySelector(`[data-filter="${lastFilter}"]`).click();
-
-    // Restore last beauty filter
-    const lastBeautyFilter = localStorage.getItem(LS_KEYS.beautyFilter) || 'all';
-    document.querySelector(`[data-category="${lastBeautyFilter}"]`).click();
-
-    // Check party time every minute
-    setInterval(checkPartyTime, 60000);
-  </script>
-</body>
-</html>
+    document.getElementById('followBtn').addEventListener('click', () => showNote
