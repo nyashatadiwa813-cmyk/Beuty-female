@@ -1,4 +1,4 @@
-# Installing the Beauty App (PWA)
+# Installing the Anash app (PWA)
 
 This repository now includes a minimal Progressive Web App setup (manifest + service worker) so you can install the app on supporting browsers.
 
