@@ -1,7 +1,25 @@
-<svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 24 24'>
-  <rect width='24' height='24' fill='#3b82f6'/>
-  <g transform='translate(2,2)'>
-    <circle cx='10' cy='10' r='8' fill='#fff' opacity='0.95'/>
-    <text x='10' y='13' font-size='8' text-anchor='middle' fill='#3b82f6' font-family='Arial'>Beauty</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 192 192" role="img" aria-labelledby="title desc">
+  <title id="title">Anash app logo</title>
+  <desc id="desc">A pink and purple flower mark with the letter A for Anash</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ec4899"/>
+      <stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="petal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fce7f3"/>
+      <stop offset="1" stop-color="#c4b5fd"/>
+    </linearGradient>
+  </defs>
+  <rect width="192" height="192" rx="42" fill="url(#bg)"/>
+  <circle cx="96" cy="96" r="69" fill="#ffffff" fill-opacity=".16"/>
+  <g fill="url(#petal)">
+    <ellipse cx="96" cy="54" rx="19" ry="35"/>
+    <ellipse cx="138" cy="96" rx="35" ry="19"/>
+    <ellipse cx="96" cy="138" rx="19" ry="35"/>
+    <ellipse cx="54" cy="96" rx="35" ry="19"/>
   </g>
+  <circle cx="96" cy="96" r="24" fill="#fff"/>
+  <path d="M96 78 72 124h14l5-11h20l5 11h14L106 78H96Zm5 24h-6l3-8 3 8Z" fill="#172554"/>
+  <circle cx="96" cy="96" r="4" fill="#ec4899"/>
 </svg>
