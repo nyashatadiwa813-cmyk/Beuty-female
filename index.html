@@ -15,7 +15,7 @@
       --verified:#1d9bf0;--shadow:0 18px 42px rgba(15,23,42,0.18);
     }
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;font-family:Inter,Segoe UI,Tahoma,sans-serif;color:var(--ink);background:linear-gradient(135deg,var(--bg1),var(--bg2))}
-    a{text-decoration:none;color:inherit}button,input,textarea{font:inherit}
+    a{text-decoration:none;color:inherit}button,input,textarea,select{font:inherit}
     .shell{max-width:1180px;margin:0 auto;padding:0 18px 40px}
     .topbar{display:flex;align-items:center;justify-content:space-between;padding:18px 0;gap:16px}
     .brand{display:flex;align-items:center;gap:10px;font-weight:800;color:#fff;font-size:1.5rem}
@@ -72,7 +72,15 @@
     .post-author{display:flex;align-items:center;gap:10px;font-weight:800}
     .post-date{color:rgba(255,255,255,.7);font-size:.8rem}
     .post-text{line-height:1.6;color:rgba(255,255,255,.9)}
-    .post-image{width:100%;border-radius:18px;margin-top:14px;display:block;max-height:260px;object-fit:cover}
+    .post-image{width:100%;border-radius:18px;margin-top:14px;display:block;max-height:260px;object-fit:cover;box-shadow:0 10px 28px rgba(15,23,42,.18)}
+
+    .beauty-panel{margin-top:12px;padding:12px;border-radius:16px;background:linear-gradient(135deg,rgba(251,113,133,.18),rgba(167,139,250,.12));border:1px solid rgba(255,255,255,.14)}
+    .beauty-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:12px}
+    .filter-chip{background:rgba(255,255,255,.07);color:#fff;border:1px solid rgba(255,255,255,.15);border-radius:999px;padding:10px 12px;cursor:pointer;font-weight:700}
+    .filter-chip.active{background:linear-gradient(135deg,var(--pink),#fbbf24);color:#fff;border-color:transparent}
+    .beauty-preview{height:120px;border-radius:18px;margin-top:12px;background:linear-gradient(135deg,#f9a8d4,#a78bfa 35%,#fef3c7 100%);display:grid;place-items:center;position:relative;overflow:hidden}
+    .beauty-preview::before{content:"";position:absolute;inset:18px;border-radius:50%;background:rgba(255,255,255,.18);filter:blur(20px);}
+    .beauty-preview strong{position:relative;z-index:1;color:#fff;font-size:1.05rem;text-shadow:0 2px 12px rgba(15,23,42,.3)}
 
     .modal-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.6);display:none;place-items:center;padding:18px;z-index:999}
     .modal-backdrop.open{display:grid}
@@ -82,7 +90,7 @@
     .field{display:flex;flex-direction:column;gap:8px;margin-top:14px}
     .field.full{grid-column:1/-1}
     label{font-size:.8rem;color:#475569;font-weight:700}
-    input, textarea{background:#fff;border:1px solid #dbe4f0;border-radius:12px;padding:12px 14px;color:var(--ink)}
+    input, textarea, select{background:#fff;border:1px solid #dbe4f0;border-radius:12px;padding:12px 14px;color:var(--ink)}
     textarea{min-height:100px;resize:vertical}
     .modal-actions{display:flex;justify-content:flex-end;gap:12px;margin-top:18px}
     .toast{position:fixed;right:20px;bottom:20px;background:#111827;color:#fff;padding:12px 14px;border-radius:12px;box-shadow:var(--shadow);opacity:0;transform:translateY(12px);transition:.25s ease;pointer-events:none}
@@ -95,6 +103,7 @@
       .hero,.dashboard,.about,.activity,.post-list{grid-template-columns:1fr}
       .categories{grid-template-columns:repeat(3,1fr)}
       .form-grid{grid-template-columns:1fr}
+      .beauty-grid{grid-template-columns:repeat(2,1fr)}
     }
     @media(max-width:560px){
       .topbar{flex-direction:column;align-items:flex-start}
@@ -104,6 +113,7 @@
       .cta-row{flex-direction:column;width:100%}
       .cta-row > *{width:100%}
       .categories{grid-template-columns:repeat(2,1fr)}
+      .beauty-grid{grid-template-columns:1fr}
       .fab{right:16px;bottom:16px;width:58px;height:58px}
     }
   </style>
@@ -291,6 +301,27 @@
           <label for="postImage">Image URL (optional)</label>
           <input id="postImage" name="postImage" type="url" placeholder="https://example.com/image.jpg">
         </div>
+
+        <div class="beauty-panel field full">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+            <strong>Beauty effects</strong>
+            <span style="color:rgba(255,255,255,.8);font-size:.8rem">Add glow</span>
+          </div>
+          <div class="beauty-grid">
+            <button type="button" class="filter-chip active" data-filter="none">Natural</button>
+            <button type="button" class="filter-chip" data-filter="glow">Glow</button>
+            <button type="button" class="filter-chip" data-filter="soft">Soft rose</button>
+            <button type="button" class="filter-chip" data-filter="vintage">Vintage</button>
+            <button type="button" class="filter-chip" data-filter="bright">Bright</button>
+            <button type="button" class="filter-chip" data-filter="cinematic">Cinematic</button>
+          </div>
+          <div class="beauty-preview"><strong>Beauty filter preview</strong></div>
+          <div class="field" style="margin-bottom:0;">
+            <label for="beautyIntensity">Effect intensity</label>
+            <input id="beautyIntensity" type="range" min="0" max="100" value="58">
+          </div>
+        </div>
+
         <div class="modal-actions">
           <button class="ghost" type="button" id="cancelPost">Cancel</button>
           <button class="primary" type="submit">Publish</button>
@@ -306,29 +337,28 @@
     const STORAGE_KEY = 'anash-verification-requests';
     const POSTS_KEY = 'anash-posts';
 
-    const initialProfile = {
-      name: 'Yourskinjournal',
-      handle: '@yourskinjournal',
-      verified: false,
-      status: 'pending'
-    };
+    const initialProfile = { name: 'Yourskinjournal', handle: '@yourskinjournal', verified: false, status: 'pending' };
 
     const defaultPosts = [
-      {
-        author: 'Amina',
-        handle: '@amandaleah',
-        text: 'A simple 3-step routine that helps my skin feel calm and glowing before bed. Cleanse, hydrate, and sleep early.',
-        image: '',
-        date: 'Today'
-      },
-      {
-        author: 'Nia',
-        handle: '@nataliewellness',
-        text: 'My favorite gentle body ritual is warm water, soft towels, and a small stretch before bed. It helps me reset after a busy day.',
-        image: '',
-        date: '2h ago'
-      }
+      { author: 'Amina', handle: '@amandaleah', text: 'A simple 3-step routine that helps my skin feel calm and glowing before bed. Cleanse, hydrate, and sleep early.', image: '', date: 'Today', filter: 'glow', intensity: 60 },
+      { author: 'Nia', handle: '@nataliewellness', text: 'My favorite gentle body ritual is warm water, soft towels, and a small stretch before bed. It helps me reset after a busy day.', image: '', date: '2h ago', filter: 'soft', intensity: 45 }
     ];
+
+    const FILTERS = {
+      none: 'none',
+      glow: 'saturate(1.25) contrast(1.12) brightness(1.08) sepia(0.10)',
+      soft: 'saturate(1.4) contrast(1.06) brightness(1.12) hue-rotate(-10deg)',
+      vintage: 'sepia(0.45) contrast(1.18) saturate(0.8) brightness(0.95)',
+      bright: 'brightness(1.2) contrast(1.18) saturate(1.35)',
+      cinematic: 'saturate(1.5) contrast(1.25) brightness(1.06) hue-rotate(18deg)'
+    };
+
+    function getFilterValue(filterName, intensity) {
+      const base = FILTERS[filterName] || FILTERS.none;
+      if (filterName === 'none') return base;
+      const level = Number(intensity || 50) / 100;
+      return `${base} blur(${(level * 0.2).toFixed(2)}px)`;
+    }
 
     function loadRequests() {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -398,7 +428,7 @@
     function renderPosts() {
       const feed = document.getElementById('communityFeed');
       const posts = loadPosts();
-      feed.innerHTML = posts.map((post) => `
+      feed.innerHTML = posts.map(post => `
         <article class="post-card">
           <div class="post-header">
             <div class="post-author">
@@ -411,7 +441,7 @@
             <div class="post-date">${post.date || 'Now'}</div>
           </div>
           <div class="post-text">${(post.text || '').replace(/\n/g,'<br>')}</div>
-          ${post.image ? `<img class="post-image" src="${post.image}" alt="Community post image">` : ''}
+          ${post.image ? `<img class="post-image" src="${post.image}" alt="Community post" style="filter:${getFilterValue(post.filter || 'none', post.intensity || 50)};">` : ''}
         </article>
       `).join('');
     }
@@ -464,6 +494,31 @@
       }
     });
 
+    const filterButtons = document.querySelectorAll('.filter-chip');
+    const beautyIntensity = document.getElementById('beautyIntensity');
+    let selectedFilter = 'none';
+
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        filterButtons.forEach(btn => btn.classList.toggle('active', btn === button));
+        selectedFilter = button.dataset.filter || 'none';
+        const preview = document.querySelector('.beauty-preview');
+        preview.style.filter = getFilterValue(selectedFilter, beautyIntensity.value);
+        preview.style.background = selectedFilter === 'vintage'
+          ? 'linear-gradient(135deg,#f5d0a9,#8b5e3c 35%,#fce7f3 100%)'
+          : selectedFilter === 'bright'
+          ? 'linear-gradient(135deg,#dbeafe,#fbcfe8 35%,#fef3c7 100%)'
+          : selectedFilter === 'cinematic'
+          ? 'linear-gradient(135deg,#1d4ed8,#a78bfa 30%,#f9a8d4 100%)'
+          : 'linear-gradient(135deg,#f9a8d4,#a78bfa 35%,#fef3c7 100%)';
+      });
+    });
+
+    beautyIntensity.addEventListener('input', () => {
+      const preview = document.querySelector('.beauty-preview');
+      preview.style.filter = getFilterValue(selectedFilter, beautyIntensity.value);
+    });
+
     document.getElementById('openComposer').addEventListener('click', () => {
       document.getElementById('composerModal').classList.add('open');
       document.getElementById('composerModal').setAttribute('aria-hidden', 'false');
@@ -473,6 +528,10 @@
       document.getElementById('composerModal').classList.remove('open');
       document.getElementById('composerModal').setAttribute('aria-hidden', 'true');
       document.getElementById('postForm').reset();
+      selectedFilter = 'none';
+      beautyIntensity.value = 58;
+      filterButtons.forEach((button) => button.classList.toggle('active', button.dataset.filter === 'none'));
+      document.querySelector('.beauty-preview').style.filter = 'none';
     });
 
     document.getElementById('postForm').addEventListener('submit', (event) => {
@@ -491,19 +550,27 @@
         handle: '@' + author.toLowerCase().replace(/\s+/g, ''),
         text,
         image,
-        date: 'Just now'
+        date: 'Just now',
+        filter: selectedFilter,
+        intensity: Number(beautyIntensity.value) || 50
       };
       const posts = loadPosts();
       posts.unshift(post);
       localStorage.setItem(POSTS_KEY, JSON.stringify(posts));
       renderPosts();
       form.reset();
+      selectedFilter = 'none';
+      beautyIntensity.value = 58;
+      filterButtons.forEach((button) => button.classList.toggle('active', button.dataset.filter === 'none'));
+      document.querySelector('.beauty-preview').style.filter = 'none';
       document.getElementById('composerModal').classList.remove('open');
       setToast('Post published!');
     });
 
     renderCounts();
     renderPosts();
+    const preview = document.querySelector('.beauty-preview');
+    preview.style.filter = getFilterValue(selectedFilter, beautyIntensity.value);
   </script>
   <script src="./pwa-register.js"></script>
 </body>
